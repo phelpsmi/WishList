@@ -1,0 +1,26 @@
+<div class="list row">
+  <ng-container *ngFor="let wishes of familyWishes; let i = index">
+    <div class="col-md-3">
+      <h4>{{relatives[i].firstName}}</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let wish of wishes; let j = index"
+          [class.active]="i == currentUserIndex && j == currentWishIndex"
+          [class.taken]="wish.gifterId && wish.gifterId !== currentUser.id"
+          [class.claimed]="wish.gifterId && wish.gifterId === currentUser.id"
+          (click)="setActiveWish(wish, i, j)"
+        >
+          {{ wish.title }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-3" *ngIf="i == currentUserIndex">
+      <app-wish-details
+        [viewMode]="true"
+        [currentWish]="currentWish"
+      ></app-wish-details>
+    </div>
+  </ng-container>
+
+</div>

@@ -1,0 +1,97 @@
+<div *ngIf="viewMode || currentWish.ownerId !== currentUser.id; else editable">
+  <div *ngIf="currentWish.id">
+    <h4>{{currentWish.title}}</h4>
+    <div>
+      <strong>Description: </strong>{{ currentWish.description }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      <ng-container *ngIf="currentWish.ownerId !== currentUser.id">{{ currentWish.gifterId ? " Claimed" : " Unclaimed" }}</ng-container>
+      <ng-container *ngIf="currentWish.ownerId === currentUser.id">{{ currentWish.published ? " Public" : " Private" }}</ng-container>
+    </div>
+
+    <button *ngIf="currentWish.ownerId === currentUser.id" class="badge badge-warning" routerLink="/wish/{{ currentWish.id }}">
+      Edit
+    </button>
+    <button *ngIf="currentWish.ownerId === currentUser.id" class="badge badge-danger" (click)="deleteWish()">
+      Delete
+    </button>
+    <button *ngIf="currentWish.ownerId !== currentUser.id && !currentWish.gifterId" class="badge badge-success" (click)="updateClaim(true)">
+      Claim
+    </button>
+    <button *ngIf="currentWish.gifterId === currentUser.id" class="badge badge-warning" (click)="updateClaim(false)">
+      Unclaim
+    </button>
+  </div>
+
+  <div *ngIf="!currentWish">
+    <br />
+    <p>Please click on a Wish...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentWish.id" class="edit-form">
+    <h4>Wish</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentWish.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentWish.description"
+          name="description"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentWish.published ? "Public" : "Private" }}
+      </div>
+    </form>
+
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf="currentWish.published"
+      (click)="updatePublished(false)"
+    >
+      UnPublish
+    </button>
+    <button
+      *ngIf="!currentWish.published"
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(true)"
+    >
+      Publish
+    </button>
+
+    <button class="badge badge-danger mr-2" (click)="deleteWish()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateWish()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentWish.id">
+    <br />
+    <p>Cannot access this Wish...</p>
+  </div>
+</ng-template>

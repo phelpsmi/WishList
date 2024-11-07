@@ -1,0 +1,33 @@
+<div>
+  <div class="submit-form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" *ngIf="!success">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput type="text" [formControlName]="'username'">
+        <mat-error *ngIf="form.controls['username'].hasError('required')">
+          Field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [formControlName]="'password'" [placeholder]="'Password'">
+        <mat-error *ngIf="form.controls['password'].hasError('required')">
+          Field is required.
+        </mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <button type="submit" mat-raised-button color="primary" class="btn btn-success register" [disabled]="!form.valid">Login</button>
+
+      <div class="alert alert-warning" *ngIf="errorMessage">
+        Login failed!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="success">
+      Login Successful
+    </div>
+  </div>
+</div>

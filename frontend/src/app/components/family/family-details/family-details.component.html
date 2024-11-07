@@ -1,0 +1,62 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentFamily.id">
+    <h4>{{currentFamily.name}}</h4>
+
+    <h6>Members: </h6>
+    <div>
+      <ng-container *ngFor="let user of currentFamily.users">{{user.firstName}} {{user.lastName}}<br></ng-container>
+    </div>
+
+    <a *ngIf="ownsFamily()" class="badge badge-warning" routerLink="/family/{{ currentFamily.id }}">
+      Edit
+    </a>
+
+    <button *ngIf="!inFamily() && !ownsFamily()" type="submit" class="badge badge-success mb-2" (click)="joinFamily()">Join</button>
+    <button *ngIf="inFamily() && !ownsFamily()" type="submit" class="badge badge-danger mb-2" (click)="leaveFamily()">Leave</button>
+    <p>{{ message }}</p>
+  </div>
+
+
+
+  <div *ngIf="!currentFamily">
+    <br />
+    <p>Loading Family...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentFamily.id" class="edit-form">
+    <h4>Family</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentFamily.name"
+          name="title"
+        />
+      </div>
+    </form>
+
+
+    <button class="badge badge-danger mr-2" (click)="deleteFamily()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateFamily()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentFamily.id">
+    <br />
+    <p>Loading Family...</p>
+  </div>
+</ng-template>

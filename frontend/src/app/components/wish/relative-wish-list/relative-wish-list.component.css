@@ -1,0 +1,17 @@
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+.list-group-item.taken:not(.active) {
+  color: #fff;
+  background-color: #ea4335;
+  /* border-color: #007bff; */
+}
+
+.list-group-item.claimed:not(.active) {
+  color: #fff;
+  background-color: #348a53;
+  /* border-color: #007bff; */
+}

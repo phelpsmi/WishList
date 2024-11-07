@@ -1,0 +1,22 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="family.name"
+          name="name"
+        />
+      </div>
+      <button (click)="saveFamily()" class="btn btn-success">Submit</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Family was created successfully!</h4>
+    </div>
+  </div>
+</div>

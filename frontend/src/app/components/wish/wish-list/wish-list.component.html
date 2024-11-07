@@ -1,0 +1,25 @@
+<div class="list row">
+  <div class="col-md-6">
+    <h4>Your Wish List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let wish of wishes; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveWish(wish, i)"
+      >
+        {{ wish.title }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllWishes()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <app-wish-details
+      [viewMode]="false"
+      [currentWish]="currentWish"
+    ></app-wish-details>
+  </div>
+</div>

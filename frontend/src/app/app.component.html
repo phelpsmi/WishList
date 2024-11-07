@@ -1,0 +1,44 @@
+<div>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">WishList</a>
+    <div class="navbar-nav mr-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a routerLink="wish/self" class="nav-link">Your Wishes</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="wish/all" class="nav-link">Family Wishes</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="wish/add" class="nav-link">Add Wish</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="family/all" class="nav-link">Families</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="family/add" class="nav-link">Create Family</a>
+      </li>
+    </div>
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a routerLink="auth/register" class="nav-link" >Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="auth/login" class="nav-link" >Login</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
