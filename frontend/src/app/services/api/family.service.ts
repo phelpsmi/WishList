@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Wish } from '../../models/wish.model';
 import { Family } from '../../models/family.model';
 
-const baseUrl = 'http://localhost:8080/api/families';
+const baseUrl = 'http://192.168.0.185:8080/api/families';
 
 @Injectable({
   providedIn: 'root'

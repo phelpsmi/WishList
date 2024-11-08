@@ -12,6 +12,8 @@ import { FamilyListComponent } from './components/family/family-list/family-list
 import { AuthValidatorResolver } from './providers/authValidator.resolver';
 import { RelativeWishListComponent } from './components/wish/relative-wish-list/relative-wish-list.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { GiftListComponent } from './components/wish/gift-list/gift-list.component';
+
 
 const routes: Routes = [
   {
@@ -26,6 +28,7 @@ const routes: Routes = [
       { path: 'wish', canActivate: [HandleLoginGuard], children: [
         { path: 'add', component: AddWishComponent },
         { path: 'self', component: WishListComponent },
+        { path: 'gifts', component: GiftListComponent },
         { path: 'all', component: RelativeWishListComponent },
         { path: ':id', component: WishDetailsComponent }
       ]},

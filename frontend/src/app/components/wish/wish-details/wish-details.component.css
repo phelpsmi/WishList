@@ -1,4 +1,11 @@
 .edit-form {
   max-width: 400px;
   margin: auto;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.view-form {
+  background-color: lightgray;
+  padding: 10px;
 }

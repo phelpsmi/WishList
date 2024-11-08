@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Wish } from '../../models/wish.model';
 
-const baseUrl = 'http://localhost:8080/api/wishes';
+const baseUrl = 'http://192.168.0.185:8080/api/wishes';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class WishService {
 
   getAll(userId: any = 0): Observable<Wish[]> {
     return this.http.get<Wish[]>(baseUrl, {params: {userId: userId}});
+  }
+
+  getGifts(): Observable<Wish[]> {
+    return this.http.get<Wish[]>(`${baseUrl}/gifts`)
   }
 
   get(id: any): Observable<Wish> {

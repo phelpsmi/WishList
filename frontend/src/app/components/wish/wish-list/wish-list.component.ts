@@ -9,11 +9,11 @@ import { WishService } from 'src/app/services/api/wish.service';
   styleUrls: ['./wish-list.component.css']
 })
 export class WishListComponent implements OnInit {
-
   wishes?: Wish[];
   currentWish: Wish = {};
   currentIndex = -1;
   title = '';
+  creatingWish = false;
 
   constructor(private wishService: WishService) { }
 
@@ -54,6 +54,25 @@ export class WishListComponent implements OnInit {
       });
   }
 
+  addWish(): void {
+    const data = {
+      title: "New Wish",
+      description: ""
+    };
+
+    this.creatingWish = true;
+
+    this.wishService.create(data)
+      .subscribe({
+        next: (res: Wish) => {
+          console.log(res);
+          this.wishes.push(res);
+          this.creatingWish = false;
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
   searchTitle(): void {
     this.currentWish = {};
     this.currentIndex = -1;
@@ -68,4 +87,12 @@ export class WishListComponent implements OnInit {
       });
   }
 
+  deletedWish(wish: Wish) {
+    const index = this.wishes.indexOf(wish);
+
+    if (this.currentIndex === index) this.setActiveWish({}, -1)
+
+    if (index > -1)
+      this.wishes.splice(index, 1);
+  }
 }

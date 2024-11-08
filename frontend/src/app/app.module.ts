@@ -6,19 +6,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthValidatorResolver } from './providers/authValidator.resolver';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WishDetailsComponent } from './components/wish/wish-details/wish-details.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { AuthInterceptor } from './providers/auth.interceptor';
+import { WishDetailsComponent } from './components/wish/wish-details/wish-details.component';
 import { AddWishComponent } from './components/wish/add-wish/add-wish.component';
 import { WishListComponent } from './components/wish/wish-list/wish-list.component';
+import { GiftListComponent } from './components/wish/gift-list/gift-list.component';
 import { AddFamilyComponent } from './components/family/add-family/add-family.component';
 import { FamilyListComponent } from './components/family/family-list/family-list.component';
 import { FamilyDetailsComponent } from './components/family/family-details/family-details.component';
-import { AuthValidatorResolver } from './providers/authValidator.resolver';
 import { RelativeWishListComponent } from './components/wish/relative-wish-list/relative-wish-list.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 
@@ -28,6 +29,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
     AddWishComponent,
     WishDetailsComponent,
     WishListComponent,
+    GiftListComponent,
     RegisterComponent,
     LoginComponent,
     AddFamilyComponent,

@@ -1,8 +1,7 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
-import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
-import { AuthService } from './api/auth.service';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';

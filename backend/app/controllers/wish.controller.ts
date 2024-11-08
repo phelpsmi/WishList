@@ -37,14 +37,22 @@ export class WishController {
     const curUser = AuthJwt.getUser(req);
     if (userId && curUser.id !== userId) {
       User.findByPk(userId).then(user => {
-        user._getWishes({where: {published: true}}).then(wishes => res.send(wishes.sort((a, b) => a.title > b.title ? 1 : -1)));
+        user._getWishes().then(wishes => res.send(wishes.sort((a, b) => a.title > b.title ? 1 : -1)));
       })
     } else {
-      curUser._getWishes({attributes: ['id', 'title', 'description', 'published', 'ownerId', 'updatedAt']}).then(wishes => {
+      curUser._getWishes({attributes: {exclude: ['gifterId']}}).then(wishes => {
         wishes.forEach(wish => wish.gifter = null);
         res.send(wishes.sort((a, b) => a.title > b.title ? 1 : -1));
       });
     }
+  }
+
+  static findGifts(req: Request, res: Response) {
+    const userId: number = AuthJwt.getUser(req).id;
+
+    AuthJwt.getUser(req)._getGifts().then(gifts => {
+      res.send(gifts)
+    })
   }
 
   static findByUser(req: Request, res: Response) {

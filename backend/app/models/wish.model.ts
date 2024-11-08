@@ -9,6 +9,9 @@ export class Wish extends Model {
   @Column(DataType.TEXT)
   public description: string;
 
+  @Column(DataType.TEXT)
+  public link: string;
+
   @Column(DataType.BOOLEAN)
   public published: boolean;
 

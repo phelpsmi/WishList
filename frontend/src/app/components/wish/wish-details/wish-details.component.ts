@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WishService } from 'src/app/services/api/wish.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Wish } from 'src/app/models/wish.model';
@@ -14,6 +14,8 @@ import { User } from '../../../models/user.model';
 export class WishDetailsComponent implements OnInit {
 
   @Input() viewMode = false;
+  @Output() deleted = new EventEmitter();
+  @Output() unclaimed = new EventEmitter();
 
   @Input() currentWish: Wish = {
     title: '',
@@ -83,6 +85,7 @@ export class WishDetailsComponent implements OnInit {
           console.log(res);
           this.currentWish.gifterId = claim ? this.currentUser.id : null;
           this.message = res.message ? res.message : 'The claim status was changed successfully!';
+          if (claim === false) this.unclaimed.emit();
         },
         error: (e: HttpErrorResponse) => console.error(e)
       });
@@ -106,10 +109,10 @@ export class WishDetailsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.router.navigate(['/Wishes']);
+          this.deleted.emit();
+          // this.router.navigate(['/Wishes']);
         },
         error: (e: HttpErrorResponse) => console.error(e)
       });
   }
-
 }

@@ -1,8 +1,11 @@
-<div *ngIf="viewMode || currentWish.ownerId !== currentUser.id; else editable">
+<div class="view-form" *ngIf="viewMode || currentWish.ownerId !== currentUser.id; else editable">
   <div *ngIf="currentWish.id">
     <h4>{{currentWish.title}}</h4>
     <div>
-      <strong>Description: </strong>{{ currentWish.description }}
+      {{ currentWish.description }}
+    </div>
+    <div *ngIf="currentWish.link">
+      <strong>Link: </strong><a target="_blank" [href]="currentWish.link">{{ currentWish.link.split('/')[2] }}</a>
     </div>
     <div>
       <label><strong>Status:</strong></label>
@@ -54,6 +57,16 @@
           name="description"
         ></textarea>
       </div>
+      <div class="form-group">
+        <label for="title">Link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentWish.link"
+          name="title"
+        />
+      </div>
 
       <div class="form-group">
         <label><strong>Status:</strong></label>
@@ -61,20 +74,20 @@
       </div>
     </form>
 
-    <button
+    <!-- <button
       class="badge badge-primary mr-2"
       *ngIf="currentWish.published"
       (click)="updatePublished(false)"
     >
       UnPublish
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       *ngIf="!currentWish.published"
       class="badge badge-primary mr-2"
       (click)="updatePublished(true)"
     >
       Publish
-    </button>
+    </button> -->
 
     <button class="badge badge-danger mr-2" (click)="deleteWish()">
       Delete

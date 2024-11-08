@@ -17,6 +17,8 @@ wishRouter.get("/user/:userId", [AuthJwt.verifyToken], WishController.findByUser
 // Retrieve all published Tutorials
 wishRouter.get("/published", WishController.findAllPublished);
 
+wishRouter.get("/gifts", WishController.findGifts);
+
 // Retrieve a single Tutorial with id
 wishRouter.get("/:id", WishController.findOne);
 
