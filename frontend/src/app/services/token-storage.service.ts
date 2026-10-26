@@ -51,7 +51,7 @@ export class RootRedirect  {
     if(this.tokenStorage.getToken()){
       this.router.navigate(['wish/all']);
     }else{
-      this.router.navigate(['login']);
+      this.router.navigate(['auth/login']);
     }
     return false;
   }

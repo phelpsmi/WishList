@@ -2,29 +2,32 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
+import { ApiUrlService } from '../api-url.servive';
+import { BaseApiService } from './base.service';
 
-const baseUrl = 'http://192.168.0.185:8080/api/auth';
+const areaRoute = '/api/auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-
-  constructor(private http: HttpClient) { }
+export class AuthService extends BaseApiService {
+  constructor(private http: HttpClient, apiUrlService: ApiUrlService) {
+    super(areaRoute, apiUrlService);
+  }
 
   register(data: User): Observable<any> {
-    return this.http.post(`${baseUrl}/signup`, data);
+    return this.http.post(this.getUrl('signup'), data);
   }
 
   login(data: {username: string, password: string}): Observable<any> {
-    return this.http.post(`${baseUrl}/signin`, data);
+    return this.http.post(this.getUrl('signin'), data);
   }
 
   update(id: number, data: User): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(this.getUrl(id.toString()), data);
   }
 
   verify(): Observable<any> {
-    return this.http.get(`${baseUrl}/verify`);
+    return this.http.get(this.getUrl('verify'));
   }
 }
