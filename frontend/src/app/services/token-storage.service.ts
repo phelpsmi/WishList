@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -44,21 +44,21 @@ export class TokenStorageService {
 }
 
 @Injectable({providedIn: 'root'})
-export class RootRedirect implements CanActivate {
+export class RootRedirect  {
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if(this.tokenStorage.getToken()){
       this.router.navigate(['wish/all']);
     }else{
-      this.router.navigate(['login']);
+      this.router.navigate(['auth/login']);
     }
     return false;
   }
 }
 
 @Injectable({providedIn: 'root'})
-export class HandleLoginGuard implements CanActivate {
+export class HandleLoginGuard  {
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -72,7 +72,7 @@ export class HandleLoginGuard implements CanActivate {
 }
 
 @Injectable({providedIn: 'root'})
-export class HandleVisitorGuard implements CanActivate {
+export class HandleVisitorGuard  {
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

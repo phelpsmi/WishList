@@ -2,46 +2,48 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
-import { environment } from 'src/environments/environment';
+import { ApiUrlService } from '../api-url.servive';
+import { BaseApiService } from './base.service';
 
-const baseUrl = `${environment.apiUrl}/auth`;
+const areaRoute = 'api/users';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-
-  constructor(private http: HttpClient) { }
+export class UserService extends BaseApiService {
+  constructor(private http: HttpClient, apiUrlService: ApiUrlService) {
+    super(areaRoute, apiUrlService);
+  }
 
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(this.getUrl(''), data);
   }
 
   login(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/login`, data);
+    return this.http.put(this.getUrl('login'), data);
   }
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>(baseUrl);
+    return this.http.get<User[]>(this.getUrl(''));
   }
 
   get(id: any): Observable<User> {
-    return this.http.get<User>(`${baseUrl}/${id}`);
+    return this.http.get<User>(this.getUrl(id.toString()));
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(this.getUrl(id.toString()), data);
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(this.getUrl(id.toString()));
   }
 
   deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
+    return this.http.delete(this.getUrl(''));
   }
 
   getRelatives(): Observable<User[]> {
-    return this.http.get<User[]>(`${baseUrl}/relatives`)
+    return this.http.get<User[]>(this.getUrl('relatives'))
   }
 }

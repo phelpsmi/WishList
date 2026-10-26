@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import {sequelize} from "./app/models"
 import { addRoutes } from "./app/routes";
+import path from "path";
 
 const app: express.Application = express();
 
@@ -33,8 +34,18 @@ sequelize.sync()
 
 addRoutes(app);
 
+app.use('/**/*', express.static(path.join(__dirname, 'client')));
+app.use('/', express.static(path.join(__dirname, 'client')));
+
+// app.use('/*.js', express.static(path.join(__dirname, 'client')));
+// app.use('/*.css', express.static(path.join(__dirname, 'client')));
+// app.all('/*', (req, res) => {
+//     // Just send the index.html for other files to support HTML5Mode
+//     res.sendFile('index.html', { root: path.join(__dirname, 'client') });
+// });
+
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+const PORT = +process.env.PORT || 8080 as number;
+app.listen(PORT, '192.168.0.185', () => {
   console.log(`Server is running on port ${PORT}.`);
 });

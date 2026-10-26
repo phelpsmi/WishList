@@ -3,54 +3,57 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Wish } from '../../models/wish.model';
 import { Family } from '../../models/family.model';
+import { ApiUrlService } from '../api-url.servive';
+import { BaseApiService } from './base.service';
 
-const baseUrl = 'http://192.168.0.185:8080/api/families';
+const areaRoute = 'api/families';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FamilyService {
-
-  constructor(private http: HttpClient) { }
+export class FamilyService extends BaseApiService {
+  constructor(private http: HttpClient, apiUrlService: ApiUrlService) {
+    super(areaRoute, apiUrlService);
+  }
 
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(this.getUrl(''), data);
   }
 
   getOwn(): Observable<Wish[]> {
-    return this.http.get<Family[]>(baseUrl);
+    return this.http.get<Family[]>(this.getUrl(''));
   }
 
   getAll(): Observable<Wish[]> {
-    return this.http.get<Family[]>(`${baseUrl}/all`);
+    return this.http.get<Family[]>(this.getUrl('all'));
   }
 
   findByName(title: any): Observable<Wish[]> {
-    return this.http.get<Wish[]>(`${baseUrl}?name=${title}`);
+    return this.http.get<Wish[]>(`${this.getUrl('')}`, {params: {name: title}});
   }
 
   join(id: any): Observable<any> {
-    return this.http.get<any>(`${baseUrl}/join/${id}`);
+    return this.http.get<any>(this.getUrl(`join/${id}`));
   }
 
   leave(id: any): Observable<any> {
-    return this.http.get<any>(`${baseUrl}/leave/${id}`);
+    return this.http.get<any>(this.getUrl(`leave/${id}`));
   }
 
   get(id: any): Observable<Wish> {
-    return this.http.get<Wish>(`${baseUrl}/${id}`);
+    return this.http.get<Wish>(this.getUrl(id.toString()));
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(this.getUrl(id.toString()), data);
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(this.getUrl(id.toString()));
   }
 
   deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
+    return this.http.delete(this.getUrl(''));
   }
 }
 
